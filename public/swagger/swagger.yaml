@@ -1,0 +1,218 @@
+swagger: "2.0"
+info:
+  description: Book Tracking API
+  version: 1.0.0
+  title: Book Tracking API
+basePath: "/api"
+paths:
+  /auth/user/register:
+    post:
+      tags:
+      - "auth"
+      summary: "New User"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "The user name for register"
+        required: true
+        type: "string"
+      - name: "phone"
+        in: "query"
+        description: "The phone for register"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "query"
+        description: "The email for register"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for register"
+        required: true
+        type: "string"
+      responses:
+        default:
+          description: "successful operation"
+  /auth/user/login:
+    post:
+      tags:
+      - "auth"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "email"
+        in: "query"
+        description: "The email for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+        "400":
+          description: "Invalid username/password supplied"
+  /book:
+    get:
+      tags:
+      - "books"
+      summary: "Get Book List"
+      description: "All book are listed."
+      operationId: "getBooks"
+      produces:
+      - "application/json"
+      responses:
+        default:
+          description: "successful operation"
+    post:
+      tags:
+      - "books"
+      summary: "New Books"
+      description: "Create new book."
+      operationId: "createBook"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "author"
+        in: "query"
+        description: "The author for create book"
+        required: true
+        type: "string"
+      - name: "book_name"
+        in: "query"
+        description: "The book_name for create book"
+        required: true
+        type: "string"
+      - name: "summary"
+        in: "query"
+        description: "The summary for create book"
+        type: "string"
+      responses:
+        default:
+          description: "successful operation"     
+  /book/{id}:         
+    put:
+      tags:
+      - "books"
+      summary: "Update Book"
+      description: "Update book."
+      operationId: "updateBook"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "author"
+        in: "query"
+        description: "The author for update book"
+        required: true
+        type: "string"
+      - name: "book_name"
+        in: "query"
+        description: "The book_name for update book"
+        required: true
+        type: "string"
+      - name: "summary"
+        in: "query"
+        description: "The summary for update book"
+        type: "string"
+      responses:
+        default:
+          description: "successful operation"       
+    delete:
+      tags:
+      - "books"
+      summary: "Delete Book"
+      description: "Delete book."
+      operationId: "deleteBook"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "The id for delete book"
+        required: true
+        type: "integer"  
+      responses:
+        default:
+          description: "successful operation"   
+  /search:
+    post:
+      tags:
+      - "search"
+      summary: "Get Select Books"
+      description: "All selected books are listed."
+      operationId: "getSelectBooks"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "author"
+        in: "query"
+        description: "The author field search for book"
+        type: "string"
+      - name: "book_name"
+        in: "query"
+        description: "The book_name fiel search for book"
+        type: "string"  
+      - name: "summary"
+        in: "query"
+        description: "The summary fiel search for book"
+        type: "string"
+      responses:
+        default:
+          description: "successful operation"
+       
+  /user/read/{id}:         
+    get:
+      tags:
+      - "users"
+      summary: "Read List"
+      description: "List of books I've read."
+      operationId: "readList"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "The id for my read list"
+        required: true
+        type: "integer"
+      responses:
+        default:
+          description: "successful operation"    
+  /user/will-read/{id}:         
+    get:
+      tags:
+      - "users"
+      summary: "To-Read List"
+      description: "To-Read list."
+      operationId: "toReadList"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "The id for to-read list"
+        required: true
+        type: "integer"
+      responses:
+        default:
+          description: "successful operation"                                               
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: Authorization
+    in: header
+  
